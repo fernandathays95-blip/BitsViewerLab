@@ -6,6 +6,7 @@ Visualizador de bits completo que permite:
 - Mostrar todos os bits do arquivo em **binário**.
 - Abrir a **câmera** do dispositivo e tirar foto.
 - Copiar os bits diretamente ou baixar como `.txt`.
+- Visualizar miniaturas das imagens carregadas com seus bits.
 
 ---
 
@@ -24,48 +25,62 @@ Visualizador de bits completo que permite:
 ├─ README.md
 ├─ BitsViewerLab.html
 ├─ exemplo.txt
+---
 
-- **BitsViewerLab.html** → HTML completo que roda no navegador e implementa todas as funcionalidades.  
-- **exemplo.txt** → Arquivo de teste com bits simulados.  
+## Exemplo de Miniatura + Bits
+
+Você pode incluir imagens pequenas de teste (`exemplo.png`) para pré-visualizar bits:
+
+<table>
+<tr>
+<td>
+<img src="exemplo.png" alt="Exemplo" width="150">
+</td>
+<td>
+01001111 01101100 01100001 00101100 00100000 01000010
+01101001 01110100 01110011 00100000 01010110 01101001
+01100101 01110111 01100101 01110010 00100001
+</td>
+</tr>
+</table>
+
+> Cada byte é mostrado em **8 bits**, linha única para fácil cópia.
 
 ---
 
-## Como usar
-
-1. Abra o arquivo `BitsViewerLab.html` no navegador.
-2. Você poderá:
-   - Arrastar ou selecionar arquivos.
-   - Abrir a câmera e tirar fotos.
-   - Visualizar os bits em binário.
-   - Copiar os bits ou baixar como `.txt`.
-
----
-
-## Exemplo de arquivo de teste
-
-Crie `exemplo.txt` com conteúdo:
-Olá, Bits Viewer Lab!
-Ao abrir no HTML e carregar, os bits exibidos serão:01001111 01101100 01100001 00101100 00100000 01000010 01101001 01110100 01110011 00100000 01010110 01101001 01100101 01110111 01100101 01110010 00100001
-
-- Cada byte é mostrado em **8 bits**.  
-- Linhas de 16 bytes para melhor leitura.
-
----
-
-## Funcionalidades detalhadas
+## Funcionalidades Detalhadas
 
 | Botão / Função        | Descrição                                                                 |
 |-----------------------|---------------------------------------------------------------------------|
 | Arrastar arquivo       | Solte qualquer arquivo para ler os bits.                                  |
 | Selecionar arquivo     | Abra seletor de arquivos para escolher um arquivo.                        |
-| Carregar Bits          | Lê o arquivo selecionado e exibe os bits.                                  |
+| Copiar Bits            | Copia todos os bits exibidos para o clipboard.                            |
 | Baixar .txt            | Salva os bits em um arquivo de texto.                                      |
 | Abrir Câmera           | Ativa a câmera do dispositivo (navegadores modernos).                     |
 | Tirar Foto             | Captura a imagem da câmera e converte em bits no viewer.                  |
+| Miniatura              | Mostra a imagem carregada diretamente no README.                           |
 
 ---
 
-## Créditos
+## HTML Interativo no README
 
-- Desenvolvido como **Bits Viewer Lab Ultra Hardcore** por fernanda.  
-- Simula visualização de bits, carregamento de arquivos e captura de fotos.
+Você também pode usar HTML embutido para mostrar previews diretamente:
+
+
+<img src="exemplo.png" width="150" alt="Preview">
+<pre>
+01001111 01101100 01100001 00101100 00100000 01000010
+01101001 01110100 01110011 00100000 01010110 01101001
+01100101 01110111 01100101 01110010 00100001
+</pre>
+
+## Como Usar
+	1.	Abra BitsViewerLab.html no navegador.
+	2.	Arraste ou selecione arquivos, abra a câmera ou tire fotos.
+	3.	Veja os bits em tempo real.
+	4.	Copie ou baixe os bits como .txt.
+	5.	Miniaturas de imagens e bits podem ser adicionadas no README com <img> + <pre>.
+
+## Créditos
+	•	Desenvolvido como Bits Viewer Lab Ultra Hardcore por fernanda.
+	•	Suporta upload, câmera, cópia, download e miniaturas.
