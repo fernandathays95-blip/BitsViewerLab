@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Bits Viewer Lab</title>
+<style>
+body {
+    font-family: monospace;
+    background: #1e1e1e;
+    color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+h1 { color: #4CAF50; }
+#drop-area {
+    border: 3px dashed #4CAF50;
+    padding: 30px;
+    width: 80%;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+textarea {
+    width: 80%;
+    height: 300px;
+    margin-top: 20px;
+    background: #111;
+    color: #0f0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto;
+    resize: vertical;
+}
+video {
+    margin-top: 10px;
+    max-width: 80%;
+    border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<h1>Bits Viewer Lab</h1>
+
+<div id="drop-area">
+    Arraste e solte um arquivo aqui ou use os botões abaixo.
+</div>
+
+<input type="file" id="fileInput" style="display:none;">
+<button onclick="document.getElementById('fileInput').click();">Selecionar Arquivo</button>
+<button id="cameraBtn">Abrir Câmera</button>
+<button id="copyBtn">Copiar Bits</button>
+<button id="downloadBtn">Baixar .txt</button>
+
+<video id="video" autoplay style="display:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+
+<textarea id="bitsArea" readonly placeholder="Os bits aparecerão aqui..."></textarea>
+
+<script>
+// Seleção de arquivo
+const fileInput = document.getElementById('fileInput');
+const bitsArea = document.getElementById('bitsArea');
+
+fileInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if(file) readFile(file);
+});
+
+// Drag & Drop
+const dropArea = document.getElementById('drop-area');
+dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.style.borderColor = "#FF9800"; });
+dropArea.addEventListener('dragleave', e => { dropArea.style.borderColor = "#4CAF50"; });
+dropArea.addEventListener('drop', e => {
+    e.preventDefault();
+    dropArea.style.borderColor = "#4CAF50";
+    const file = e.dataTransfer.files[0];
+    if(file) readFile(file);
+});
+
+// Ler arquivo e converter para bits
+function readFile(file){
+    const reader = new FileReader();
+    reader.onload = function(e){
+        const arrayBuffer = e.target.result;
+        const bytes = new Uint8Array(arrayBuffer);
+        const bits = [];
+        for(let i=0; i<bytes.length; i++){
+            bits.push(bytes[i].toString(2).padStart(8,'0'));
+        }
+        bitsArea.value = bits.join(' ');
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+// Copiar bits
+document.getElementById('copyBtn').addEventListener('click', ()=>{
+    bitsArea.select();
+    document.execCommand('copy');
+    alert("Bits copiados!");
+});
+
+// Baixar bits como .txt
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+    const blob = new Blob([bitsArea.value], {type:"text/plain"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "bits.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+// Abrir câmera
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+document.getElementById('cameraBtn').addEventListener('click', ()=>{
+    navigator.mediaDevices.getUserMedia({ video:true })
+        .then(stream => {
+            video.srcObject = stream; 
+            video.style.display = "block"; 
+            captureFrame();
+        })
+        .catch(err => alert("Erro ao acessar câmera: "+err));
+});
+
+function captureFrame(){
+    setTimeout(()=>{
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video,0,0);
+        canvas.toBlob(blob => {
+            if(blob) readFile(blob);
+        },'image/png');
+    },1000);
+}
+</script>
+
+</body>
+</html>
