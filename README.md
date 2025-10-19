@@ -14,7 +14,7 @@ Visualizador de bits completo que permite:
 
 [![Abrir HTML](https://img.shields.io/badge/Abrir-HTML-brightgreen?style=for-the-badge)](BitsViewerLab.html)
 [![Baixar Exemplo](https://img.shields.io/badge/Baixar-exemplo.txt-blue?style=for-the-badge)](exemplo.txt)
-[![Ver no GitHub](https://img.shields.io/badge/Repositorio-GitHub-lightgrey?style=for-the-badge)](https://github.com/seu-usuario/BitsViewerLab)
+[![Ver no GitHub](https://img.shields.io/badge/Repositorio-GitHub-lightgrey?style=for-the-badge)](https://github.com/fernandathays95-blip/BitsViewerLab/tree/main)
 
 > Clique nos botões acima para abrir o HTML interativo, baixar o exemplo de bits ou visitar o repositório.
 
